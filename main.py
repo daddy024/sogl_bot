@@ -1,3 +1,5 @@
+from config import PASSWORD
+from bot_handlers import handle_password
 import nest_asyncio
 nest_asyncio.apply()
 
@@ -37,6 +39,7 @@ def main():
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
+            PASSWORD: [MessageHandler(filters.TEXT & ~filters.COMMAND, handle_password)],
             DISTRICT: [MessageHandler(filters.TEXT & ~filters.COMMAND, handle_district)],
             SUBJECT: [MessageHandler(filters.TEXT & ~filters.COMMAND, handle_subject)]
         },
